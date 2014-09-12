@@ -15,8 +15,9 @@
       socket.emit('message', message);
     }
 
-    var appendNewMessage = function(newMessage){
-      $('#textMessages').val($('#textMessages').val() + '\n' + newMessage);
+    var appendNewMessage = function(data){
+      console.log(data);
+      $('#textMessages').val($('#textMessages').val() + '\n' + data.Message);
     };
 
   </script>
