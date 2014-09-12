@@ -1,12 +1,12 @@
-function room() {
+var room = {
 
-  this.onMemberJoin = function(socket, name) {
+  function onMemberJoin(socket, name) {
 
-  }
+  };
 
-  this.onNewMessage = function(socket, message) {
+  function onNewMessage(socket, message) {
     socket.emit('deliver', socket.id + ': ' + message);
-  }
+  };
 }
 
 module.exports = room;
