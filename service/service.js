@@ -12,6 +12,8 @@ var server_io = io.listen(server);
 server_io.sockets.on('connection', function(socket){
   socket.on('message', function(message){
     console.log('RECEIVE:' + message);
-    socket.emit('broadcast', {'message': message});
+    console.log(socket.emit);
+    console.log(socket);
+    socket.emit('deliver', message);
   });
 });
