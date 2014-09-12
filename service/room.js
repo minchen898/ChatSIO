@@ -7,8 +7,9 @@ exports.onMemberJoin = function(socket, name) {
 };
 
 exports.onMemberLeave = function(socket) {
+  var name = members.getName(socket.id);
   members.leave(socket.id);
-  socket.broadcast.emit('member_leave', members.getName(socket.id));
+  socket.broadcast.emit('member_leave', name);
 };
 
 exports.onNewMessage = function(socket, message) {

@@ -13,11 +13,20 @@
       $('#divSendMessage').hide();
       $('#btnJoin').click(join);
       $('#btnSend').click(sendMessage);
+      $('#textInputMessage').keypress(inputMessageKeypress);
     });
 
+    function inputMessageKeypress(e) {
+      if(e.keyCode == 13) {
+        if(!e.shiftKey) {
+          sendMessage();
+          return false;
+        }
+      }
+    }
+
     function join() {
-      var name = $('#textName').val();
-      socket.emit('join', name);
+      socket.emit('join', $('#textName').val());
 
       $('#btnJoin').hide();
       $('#divSendMessage').show();
@@ -32,12 +41,14 @@
     }
 
     function sendMessage() {
-      var message = $('#textInputMessage').val();
-      socket.emit('message', message);
+      socket.emit('message', $('#textInputMessage').val());
+      $('#textInputMessage').val('');
     }
 
     function appendNewMessage(newMessage) {
-      $('#textMessages').val($('#textMessages').val() + '\n' + newMessage);
+      var textarea = $('#textMessages');
+      textarea.val(textarea.val() + '\n' + newMessage);
+      textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
     };
 
   </script>
