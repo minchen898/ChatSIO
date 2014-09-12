@@ -6,6 +6,8 @@
     var socket = io.connect('http://54.68.166.236:8002/'
       , {'sync disconnect on unload': true });
     socket.on('deliver', appendNewMessage);
+    socket.on('member_join', memberJoin);
+    socket.on('member_leave', memberLeave);
 
     $(document).ready(function() {
       $('#divSendMessage').hide();
