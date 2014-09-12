@@ -3,15 +3,26 @@
   <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script type="text/javascript">
-    var socket = io.connect('http://54.68.166.236:8002/');
+    var socket = io.connect('http://54.68.166.236:8002/'
+      , {'sync disconnect on unload': true });
     socket.on('deliver', appendNewMessage);
 
     $(document).ready(function() {
+      $('#divSendMessage').hide();
+      $('#btnJoin').click(join);
       $('#btnSend').click(sendMessage);
     });
 
+    function join() {
+      var name = $('#textName').val();
+      socket.emit('Join', name);
+
+      $('#btnJoin').hide();
+      $('#divSendMessage').show();
+    }
+
     function sendMessage() {
-      var message = $('#textTyping').val();
+      var message = $('#textInputMessage').val();
       socket.emit('message', message);
     }
 
@@ -23,10 +34,14 @@
 </head>
 <body>
   <div>
-    <textarea id="textMessages"></textarea>
+    <input type="text" id="textName"></input>
+    <input type="button" id="btnJoin" value="Join"></input>
   </div>
   <div>
-    <textarea id="textTyping"></textarea>
+    <textarea id="textMessages"></textarea>
+  </div>
+  <div id="divSendMessage">
+    <textarea id="textInputMessage"></textarea>
     <input type="button" id="btnSend" value="Send"></input>
   </div>
 </body>

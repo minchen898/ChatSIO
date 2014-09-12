@@ -1,15 +1,17 @@
-function members() {
-  var memberName[];
+var memberName[];
 
-  function addMember(id, name) {
-    memberName[id] = name;
-  }
+exports.join = function(id, name) {
+  memberName[id] = name;
+  console.log("MEMBER JOIN");
+  console.log(memberName);
+}
 
-  function getMemberName(id) {
-    return memberName[id];
-  }
+exports.getName = function(id) {
+  return memberName[id];
+}
 
-  function removeMember(id) {
-    delete memberName[id];
-  }
+exports.leave = function(id) {
+  delete memberName[id];
+  console.log("MEMBER LEAVE");
+  console.log(memberName);
 }
