@@ -10,13 +10,12 @@
       $('#btnSend').click(sendMessage);
     });
 
-    var sendMessage = function(){
+    function sendMessage() {
       var message = $('#textTyping').val();
       socket.emit('message', message);
     }
 
-    var appendNewMessage = function(newMessage){
-      console.log(data);
+    function appendNewMessage(newMessage) {
       $('#textMessages').val($('#textMessages').val() + '\n' + newMessage);
     };
 
