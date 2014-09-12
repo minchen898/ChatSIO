@@ -3,13 +3,31 @@
   <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script type="text/javascript">
-    var socket = io.connect();
-    socket.on('date', function(data){
-      $('#date').text(data.date);
+    var socket = io.connect('http://54.68.166.236:8002/');
+    socket.on('broadcast', appendNewMessage);
+
+    $(document).ready(function() {
+      $('#btnSend').click(sendMessage);
     });
+
+    var sendMessage = function(){
+      var message = $('#textTyping').val();
+      socket.emit('message', message);
+    }
+
+    var appendNewMessage = function(newMessage){
+      $('#textMessages').val($('#textMessages').val() + '\n' + newMessage);
+    };
+
   </script>
 </head>
 <body>
-  <div id="date"></div>
+  <div>
+    <textarea id="textMessages"></textarea>
+  </div>
+  <div>
+    <textarea id="textTyping"></textarea>
+    <input type="button" id="btnSend" value="Send"></input>
+  </div>
 </body>
 </html>
