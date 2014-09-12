@@ -1,10 +1,10 @@
 function room() {
 
-  function onMemberJoin(socket, name) {
+  this.onMemberJoin = function(socket, name) {
 
   }
 
-  function onNewMessage(socket, message) {
+  this.onNewMessage = function(socket, message) {
     socket.emit('deliver', socket.id + ': ' + message);
   }
 }
