@@ -2,7 +2,7 @@ var http = require('http');
 var io = require('socket.io');
 
 //var members = require('roomembers');
-var room = require('room');
+var room = require('./room');
 
 var server = http.createServer(function(req, res){
   res.writeHead(200, {'Content-Type': 'text/html'});
