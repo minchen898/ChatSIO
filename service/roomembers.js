@@ -1,4 +1,4 @@
-var memberName[];
+var memberName = [];
 
 exports.join = function(id, name) {
   memberName[id] = name;
