@@ -15,10 +15,18 @@
 
     function join() {
       var name = $('#textName').val();
-      socket.emit('Join', name);
+      socket.emit('join', name);
 
       $('#btnJoin').hide();
       $('#divSendMessage').show();
+    }
+
+    function memberJoin(name) {
+      appendNewMessage(name + ' join the chat.')
+    }
+
+    function memberLeave(name) {
+      appendNewMessage(name + ' leave the chat.')
     }
 
     function sendMessage() {
@@ -38,10 +46,10 @@
     <input type="button" id="btnJoin" value="Join"></input>
   </div>
   <div>
-    <textarea id="textMessages"></textarea>
+    <textarea id="textMessages" style="height: 200px; width: 600px;"></textarea>
   </div>
   <div id="divSendMessage">
-    <textarea id="textInputMessage"></textarea>
+    <textarea id="textInputMessage" style="height: 80px; width: 550px;"></textarea>
     <input type="button" id="btnSend" value="Send"></input>
   </div>
 </body>
