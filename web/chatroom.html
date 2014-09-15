@@ -58,7 +58,7 @@
     function sendMessage() {
       var message = $('#textInputMessage').val();
       if(message){
-        socket.emit('message', );
+        socket.emit('message', message);
         $('#textInputMessage').val('');
       }
     }
