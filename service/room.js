@@ -14,6 +14,7 @@ exports.onMemberLeave = function(socket) {
     members.leave(socket.id);
     socket.broadcast.emit('member_leave', name);
   }
+  socket.broadcast.emit('member_list', members.memberList());
 };
 
 exports.onNewMessage = function(socket, message) {
