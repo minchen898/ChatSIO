@@ -5,7 +5,7 @@ exports.onMemberJoin = function(socket, name) {
   socket.emit('deliver', 'Welcome ' + name);
   socket.broadcast.emit('member_join', name);
   socket.emit('member_list', members.memberList);
-  socket.broadcast.emit('member_list', members.memberList);
+  //socket.broadcast.emit('member_list', members.memberList);
 };
 
 exports.onMemberLeave = function(socket) {
