@@ -8,6 +8,7 @@
     socket.on('deliver', appendNewMessage);
     socket.on('member_join', memberJoin);
     socket.on('member_leave', memberLeave);
+    socket.on('member_list', listMembers);
 
     $(document).ready(function() {
       $('#divSendMessage').hide();
@@ -26,10 +27,16 @@
     }
 
     function join() {
-      socket.emit('join', $('#textName').val());
+      var name = $('#textName').val();
+      if(name) {
+        socket.emit('join', name);
 
-      $('#btnJoin').hide();
-      $('#divSendMessage').show();
+        $('#textName').prop('readonly', true);
+        $('#btnJoin').hide();
+        $('#divSendMessage').show();
+      } else {
+        alert('Please input your name')
+      }
     }
 
     function memberJoin(name) {
@@ -40,30 +47,53 @@
       appendNewMessage(name + ' leave the chat.')
     }
 
+    function listMembers(memberList) {
+      var s = '';
+      memberList.forEach(function(name) {
+        s += name + '\n';
+      });
+      $('#textMemberList').val(s);
+    }
+
     function sendMessage() {
-      socket.emit('message', $('#textInputMessage').val());
-      $('#textInputMessage').val('');
+      var message = $('#textInputMessage').val();
+      if(message){
+        socket.emit('message', );
+        $('#textInputMessage').val('');
+      }
     }
 
     function appendNewMessage(newMessage) {
       var textarea = $('#textMessages');
-      textarea.val(textarea.val() + '\n' + newMessage);
+      textarea.val(textarea.val() + newMessage + '\n');
       textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
     };
 
   </script>
+  <style>
+    textarea {
+      resize: none;
+    }
+  </style>
 </head>
 <body>
   <div>
     <input type="text" id="textName"></input>
     <input type="button" id="btnJoin" value="Join"></input>
   </div>
-  <div>
-    <textarea id="textMessages" style="height: 200px; width: 600px;"></textarea>
+  <div style="float: left;">
+    <div>
+      <textarea id="textMemberList" style="height: 280px; width: 80px;" readonly></textarea>
+    </div>
   </div>
-  <div id="divSendMessage">
-    <textarea id="textInputMessage" style="height: 80px; width: 550px;"></textarea>
-    <input type="button" id="btnSend" value="Send"></input>
+  <div style="float: left; margin-left: 8px;">
+    <div>
+      <textarea id="textMessages" style="height: 200px; width: 600px;" readonly></textarea>
+    </div>
+    <div id="divSendMessage">
+      <textarea id="textInputMessage" style="height: 80px; width: 550px;"></textarea>
+      <input type="button" id="btnSend" value="Send"></input>
+    </div>
   </div>
 </body>
 </html>
